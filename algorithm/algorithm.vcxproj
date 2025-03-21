@@ -123,6 +123,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Algorithm.h" />
+    <ClInclude Include="Exhaustion.h" />
+    <ClInclude Include="GraphHandler.h" />
+    <ClInclude Include="Graph_types.h" />
+    <ClInclude Include="PathFinder.h" />
+    <ClInclude Include="Recursion.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GraphHandler.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="PathFinder.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

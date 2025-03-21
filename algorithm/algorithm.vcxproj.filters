@@ -14,4 +14,35 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Algorithm.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exhaustion.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph_types.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PathFinder.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Recursion.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GraphHandler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFinder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>
