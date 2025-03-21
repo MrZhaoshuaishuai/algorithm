@@ -14,7 +14,6 @@ void PathFinder::dfs(
 		result.push_back(path);
 		return;
 	}
-
 	auto out_edges = boost::out_edges(current, g);
 	auto ei = out_edges.first;
 	auto ei_end = out_edges.second;

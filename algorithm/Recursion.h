@@ -23,6 +23,7 @@ public:
 		std::mt19937 g(rd());
 		for (int i = 0; i <= RECURSE_NUM; i++) {
 			//如果迭代到十的倍数，就判断是否小于已知最优值，小于就更新
+			std::cout << "第" << i / SAVE_NUM << "保存----" << std::endl;
 			if (i%SAVE_NUM == 0) {
 				float cost = computeCost(temp_paths);
 				if (cost < this->total_cost) {
