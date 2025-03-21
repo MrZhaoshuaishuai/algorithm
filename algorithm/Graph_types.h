@@ -48,3 +48,6 @@ typedef boost::adjacency_list<
 
 typedef std::unordered_map<int, boost::graph_traits<Graph>::vertex_descriptor> VertexIdMap;
 typedef std::unordered_map<int, boost::graph_traits<Graph>::edge_descriptor> EdgeIdMap;
+
+using VertexDescriptor = boost::graph_traits<Graph>::vertex_descriptor;  
+using EdgeDescriptor = boost::graph_traits<Graph>::edge_descriptor;

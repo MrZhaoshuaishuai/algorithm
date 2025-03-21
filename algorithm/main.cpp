@@ -16,7 +16,7 @@ int main() {
 	Recursion recursion(graph);
 	recursion.recursionFunc();
 	recursion.printRes();
-
+	recursion.visualizeGraphWithPaths(recursion.selected_paths);
 
 	return 0;
 }

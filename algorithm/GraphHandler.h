@@ -40,6 +40,7 @@ public:
 	//// 你也可以为构造函数添加其他参数，进行更加灵活的初始化
 	GraphHandler(const std::vector<VertexPair>& pairs, const Graph& g_data) : vertexPairs(pairs), graph(g_data) {}
 	void preHandle();
+	
 private:
 	// 添加顶点
 	void addVertex(VertexProperties v);
@@ -47,5 +48,7 @@ private:
 	void addEdge(int id1, int id2, EdgeProperties e);
 	//添加节点对
 	void addVertexPair(VertexPair pair);
+
+	
 
 };

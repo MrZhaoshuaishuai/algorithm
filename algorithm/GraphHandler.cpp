@@ -1,5 +1,6 @@
 #include "GraphHandler.h"
 #include<set>
+
 #pragma once
 
 void GraphHandler::preHandle()
@@ -46,3 +47,4 @@ void GraphHandler::addVertexPair(VertexPair pair)
 {
 	vertexPairs.push_back(pair);
 }
+
