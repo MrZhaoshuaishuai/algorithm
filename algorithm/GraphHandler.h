@@ -1,54 +1,101 @@
 #pragma once
-#include<vector>
-#include<iostream>
-#include"Graph_types.h"
+#include <vector>
+#include <iostream>
+#include <fstream>       // 新增：文件操作
+#include <iomanip>       // 新增：控制输出格式
+#include "Graph_types.h"
 #include <boost/graph/graph_traits.hpp>
-#include"PathFinder.h"
+#include "PathFinder.h"
+#include <unordered_set>
+#include <random>
+#include <algorithm>
+#include <utility>
+#include <filesystem>  // 新增：文件系统操作
+namespace fs = std::filesystem;  // 新增：文件系统命名空间
+
+// 辅助哈希函数用于 pair<int, int>
+struct PairHash {
+    size_t operator()(const std::pair<int, int>& p) const {
+        return static_cast<size_t>(p.first) * 1000000 + p.second;
+    }
+};
+
+class UnionFind {
+private:
+    std::vector<int> parent;
+public:
+    UnionFind(int size) {
+        parent.resize(size);
+        for (int i = 0; i < size; ++i) parent[i] = i;
+    }
+
+    int find(int x) {
+        if (parent[x] != x) parent[x] = find(parent[x]);
+        return parent[x];
+    }
+
+    void unite(int x, int y) {
+        int fx = find(x), fy = find(y);
+        if (fx != fy) parent[fy] = fx;
+    }
+};
+
 class GraphHandler {
 public:
+    std::vector<VertexPair> vertexPairs;
+    std::vector<Edge> edges;
+    std::vector<std::vector<std::vector<int>>> vertexPairsPath;
+    Graph graph;
+    VertexIdMap vertexMap;
+    EdgeIdMap edgeMap;
+    int flag = 0;
 
-	//顶点对
-	std::vector<VertexPair> vertexPairs;
-	//顶点对对应的路径，一一对应
-	std::vector<std::vector<std::vector<int>>> vertexPairsPath;
+    GraphHandler() {}
 
-	Graph graph;
-	// 定义顶点 id 映射
-	VertexIdMap vertexMap;
-	// 定义边 id 映射
-	EdgeIdMap edgeMap;
-	GraphHandler() {
-		//添加id与描述符的映射，根据id标识符可以直接找到对应顶点或边，提高查找效率,不用每次查找都是遍历
-		// 添加顶点
-		addVertex({ 5 });
-		addVertex({ 4 });
-		addVertex({ 3 });
-		addVertex({ 2 });
-		addVertex({ 1 });
-		addVertex({ 0 });
-		addEdge(0, 1, { 8, 5.0f });
-		addEdge(0, 2, { 1, 1.0f });
-		addEdge(1, 3, { 7, 1.0f });
-		addEdge(2, 3, { 3, 1.0f });
-		addEdge(2, 4, { 4, 1.0f });
-		addEdge(3, 5, { 6, 1.0f });
-		addEdge(4, 5, { 9, 5.0f });
-		addVertexPair({ 0,1,1.0f });
-		addVertexPair({ 4,5,1.0f });
+    // 构造函数：生成数据并保存到文件
+    GraphHandler(int vertexNum, int edgeNum, int pairNum) {  // 新增文件名参数
+        
+        std::cout << "***自动生成图请按 1 ***" << std::endl << "***读取图文件请按 2 ***" << std::endl;
+        std::cin >> flag;
+        if (flag == 1) {
+            generate(vertexNum, edgeNum, pairNum);
+            addToGraph();
+            saveToFile();  // 生成后自动保存
+        }
+        else if(flag == 2){
+            loadGraphFromFile("data/graph01/graph_data01.txt");
+            addToGraph();
+        }
+        
+    }
 
-	}
-	//// 你也可以为构造函数添加其他参数，进行更加灵活的初始化
-	GraphHandler(const std::vector<VertexPair>& pairs, const Graph& g_data) : vertexPairs(pairs), graph(g_data) {}
-	void preHandle();
-	
+    // 新增：保存数据到文件
+    void saveToFile();
+
+    void addToGraph();
+    double preHandle();
+    void generate(int n, int m, int k);//顶点、边和顶点对
+
+    // 新增：从文件加载图数据到成员变量
+    void loadGraphFromFile(const std::string& filename);
+
+
 private:
-	// 添加顶点
-	void addVertex(VertexProperties v);
-	// 添加边
-	void addEdge(int id1, int id2, EdgeProperties e);
-	//添加节点对
-	void addVertexPair(VertexPair pair);
+    // 随机数生成（原有实现不变）
+    float randomFloat() {
+        static std::mt19937 gen(std::random_device{}());
+        static std::uniform_real_distribution<float> dis(
+            std::nextafter(0.0f, 1.0f),
+            std::nextafter(1.0f, 0.0f)
+        );
+        return dis(gen);
+    }
 
-	
+    void addVertex(VertexProperties v);
+    void addEdge(int id1, int id2, EdgeProperties e);
 
+
+
+    // 查找现有最大编号的目录
+    int findMaxGraphNumber(const std::string& base_dir);
 };

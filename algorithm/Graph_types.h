@@ -1,16 +1,24 @@
 #pragma once
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/properties.hpp>
-//定义顶点对
-struct VertexPair {
-	//顶点标识符
-	int v1Id;
-	int v2Id;
-	//线束粗细
-	float val;
-	VertexPair() : v1Id(0), v2Id(0), val(1.0f) {}
-	VertexPair(int v1Id, int v2Id, float val) : v1Id(v1Id), v2Id(v2Id), val(val) {}
+//输入参数
+// 边的结构体
+struct Edge {
+	int u, v;
+	float w_e, l_e; // w_e: 权重, l_e: 长度
+	Edge() = default;
+	Edge(int u, int v, float w_e, float l_e) : u(u), v(v), w_e(w_e), l_e(l_e) {};
 };
+
+// 顶点对的结构体
+struct VertexPair {
+	int s, t;
+	float a_i; // 顶点对的权重
+	VertexPair() = default;
+	VertexPair(int s, int t, float a_i) : s(s), t(t), a_i(a_i) {};
+};
+
+//封装为图参数
 // 定义顶点属性
 struct VertexProperties {
 	int id;        // 顶点标识符
